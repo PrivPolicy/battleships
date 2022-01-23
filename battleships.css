@@ -1,0 +1,355 @@
+* {
+  box-sizing: border-box;
+  font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande", "Lucida Sans", Arial, sans-serif;
+}
+
+html,
+body {
+  width: 100%;
+  height: 100%;
+  padding: 0;
+  margin: 0;
+}
+
+body {
+  position: relative;
+}
+
+body #theme,
+body.dark #theme {
+  position: absolute;
+  right: 20px;
+  top: 20px;
+  width: 80px;
+  height: 30px;
+  background-color: whitesmoke;
+  border-radius: 5px;
+  cursor: pointer;
+  color: #101010;
+  text-align: center;
+  line-height: 30px;
+}
+body.turn.player,
+body.dark.turn.player {
+  background: linear-gradient(90deg, rgba(0, 245, 255, 0.3) 0%, rgba(255, 255, 255, 0) 6%, rgba(255, 20, 0, 0) 100%);
+}
+body.turn.computer,
+body.dark.turn.computer {
+  background: linear-gradient(90deg, rgba(0, 245, 255, 0) 0%, rgba(255, 255, 255, 0) 94%, rgba(255, 20, 0, 0.3) 100%);
+}
+body #battleships-play,
+body.dark #battleships-play {
+  width: 100px;
+  height: 30px;
+  border: 2px solid black;
+  text-align: center;
+  line-height: 30px;
+  font-size: 16px;
+  border-radius: 6px;
+  cursor: pointer;
+  margin: 0 auto;
+  background-color: rgba(255, 255, 255, 0.5);
+}
+body div#game-container,
+body.dark div#game-container {
+  width: 824px;
+  height: 402px;
+  padding-top: 100px;
+  margin: 0 auto;
+  position: relative;
+}
+body div#game-container > *,
+body.dark div#game-container > * {
+  float: left;
+}
+body div#game-container div.board,
+body.dark div#game-container div.board {
+  width: 302px;
+  height: 302px;
+  border: 1px solid black;
+  margin: 0 auto;
+  overflow: hidden;
+  background-color: rgba(255, 255, 255, 0.5);
+}
+body div#game-container div.board div.field,
+body.dark div#game-container div.board div.field {
+  width: 30px;
+  height: 30px;
+  border: 1px solid black;
+  float: left;
+  cursor: pointer;
+  font-size: 24px;
+  line-height: 28px;
+  text-align: center;
+  color: #ffbb00;
+  transition: color 1s linear 0.8s;
+}
+body div#game-container div.board div.field.marked,
+body.dark div#game-container div.board div.field.marked {
+  background-color: #a2ca6c;
+}
+body div#game-container div.board div.field.shot,
+body.dark div#game-container div.board div.field.shot {
+  color: black;
+}
+body div#game-container div.board div.field.shot.ship,
+body.dark div#game-container div.board div.field.shot.ship {
+  font-size: 24px;
+}
+body div#game-container div.board div.field.shot.miss,
+body.dark div#game-container div.board div.field.shot.miss {
+  font-size: 56px;
+  overflow: hidden;
+  line-height: 24px;
+}
+body div#game-container div.board div.field.shot.miss.no-need,
+body.dark div#game-container div.board div.field.shot.miss.no-need {
+  color: white;
+  transition: none;
+}
+body div#game-container div.board div.field.ship.computer.visualized,
+body.dark div#game-container div.board div.field.ship.computer.visualized {
+  background-color: #fc8c8c;
+}
+body div#game-container div.board div.field.ship.computer.sunken,
+body.dark div#game-container div.board div.field.ship.computer.sunken {
+  background-color: #d14a4a;
+  border: none;
+}
+body div#game-container div.board div.field.ship.computer.sunken.border-all,
+body.dark div#game-container div.board div.field.ship.computer.sunken.border-all {
+  border: 2px solid lime;
+  line-height: 26px;
+}
+body div#game-container div.board div.field.ship.computer.sunken.border-vertical,
+body.dark div#game-container div.board div.field.ship.computer.sunken.border-vertical {
+  border-left: 2px solid lime;
+  border-right: 2px solid lime;
+  line-height: 26px;
+}
+body div#game-container div.board div.field.ship.computer.sunken.border-vertical-top,
+body.dark div#game-container div.board div.field.ship.computer.sunken.border-vertical-top {
+  border-top: 2px solid lime;
+  line-height: 26px;
+}
+body div#game-container div.board div.field.ship.computer.sunken.border-vertical-bottom,
+body.dark div#game-container div.board div.field.ship.computer.sunken.border-vertical-bottom {
+  border-bottom: 2px solid lime;
+  line-height: 26px;
+}
+body div#game-container div.board div.field.ship.computer.sunken.border-horizontal,
+body.dark div#game-container div.board div.field.ship.computer.sunken.border-horizontal {
+  border-top: 2px solid lime;
+  border-bottom: 2px solid lime;
+  line-height: 26px;
+}
+body div#game-container div.board div.field.ship.computer.sunken.border-horizontal-left,
+body.dark div#game-container div.board div.field.ship.computer.sunken.border-horizontal-left {
+  border-left: 2px solid lime;
+  line-height: 26px;
+}
+body div#game-container div.board div.field.ship.computer.sunken.border-horizontal-right,
+body.dark div#game-container div.board div.field.ship.computer.sunken.border-horizontal-right {
+  border-right: 2px solid lime;
+  line-height: 26px;
+}
+body div#game-container div.board div.field.ship.player,
+body.dark div#game-container div.board div.field.ship.player {
+  background-color: #42c3e4;
+}
+body div#game-container div.board div.field.ship.player.sunken,
+body.dark div#game-container div.board div.field.ship.player.sunken {
+  background-color: #2868a3;
+  border: none;
+}
+body div#game-container div.board div.field.ship.player.sunken.border-all,
+body.dark div#game-container div.board div.field.ship.player.sunken.border-all {
+  border: 2px solid red;
+  line-height: 26px;
+}
+body div#game-container div.board div.field.ship.player.sunken.border-vertical,
+body.dark div#game-container div.board div.field.ship.player.sunken.border-vertical {
+  border-left: 2px solid red;
+  border-right: 2px solid red;
+  line-height: 26px;
+}
+body div#game-container div.board div.field.ship.player.sunken.border-vertical-top,
+body.dark div#game-container div.board div.field.ship.player.sunken.border-vertical-top {
+  border-top: 2px solid red;
+  line-height: 26px;
+}
+body div#game-container div.board div.field.ship.player.sunken.border-vertical-bottom,
+body.dark div#game-container div.board div.field.ship.player.sunken.border-vertical-bottom {
+  border-bottom: 2px solid red;
+  line-height: 26px;
+}
+body div#game-container div.board div.field.ship.player.sunken.border-horizontal,
+body.dark div#game-container div.board div.field.ship.player.sunken.border-horizontal {
+  border-top: 2px solid red;
+  border-bottom: 2px solid red;
+  line-height: 26px;
+}
+body div#game-container div.board div.field.ship.player.sunken.border-horizontal-left,
+body.dark div#game-container div.board div.field.ship.player.sunken.border-horizontal-left {
+  border-left: 2px solid red;
+  line-height: 26px;
+}
+body div#game-container div.board div.field.ship.player.sunken.border-horizontal-right,
+body.dark div#game-container div.board div.field.ship.player.sunken.border-horizontal-right {
+  border-right: 2px solid red;
+  line-height: 26px;
+}
+body div#game-container div.board div.field.hovering.valid,
+body.dark div#game-container div.board div.field.hovering.valid {
+  background-color: #23c923;
+}
+body div#game-container div.board div.field.hovering.invalid,
+body.dark div#game-container div.board div.field.hovering.invalid {
+  background-color: #cf3030;
+}
+body div#game-container div#ship-bay,
+body.dark div#game-container div#ship-bay {
+  position: absolute;
+  padding: 20px;
+  border: 2px solid black;
+  min-width: 1px;
+  min-height: 1px;
+  left: -180px;
+  background-color: rgba(255, 255, 255, 0.5);
+}
+body div#game-container div#ship-bay .ship,
+body.dark div#game-container div#ship-bay .ship {
+  height: 30px;
+  border: 1px solid black;
+  margin: 5px 0;
+}
+body div#game-container div#ship-bay .ship div,
+body.dark div#game-container div#ship-bay .ship div {
+  width: 30px;
+  height: 28px;
+  border: 1px solid black;
+  float: left;
+  background-color: transparent;
+}
+body div#game-container div#ship-bay .ship:hover,
+body.dark div#game-container div#ship-bay .ship:hover {
+  background-color: #e9dc6d;
+  cursor: pointer;
+}
+body div#game-container div#ship-bay .ship.selected,
+body.dark div#game-container div#ship-bay .ship.selected {
+  background-color: #23c923;
+}
+body div#game-container div.ships-to-destroy,
+body.dark div#game-container div.ships-to-destroy {
+  height: 100%;
+  width: 50px;
+}
+body div#game-container div.ships-to-destroy.player,
+body.dark div#game-container div.ships-to-destroy.player {
+  margin-left: 20px;
+  margin-right: 40px;
+}
+body div#game-container div.ships-to-destroy.player div.indicator div,
+body.dark div#game-container div.ships-to-destroy.player div.indicator div {
+  background-color: #aac8ff;
+}
+body div#game-container div.ships-to-destroy.computer,
+body.dark div#game-container div.ships-to-destroy.computer {
+  margin-left: 40px;
+  margin-right: 20px;
+}
+body div#game-container div.ships-to-destroy.computer div.indicator div,
+body.dark div#game-container div.ships-to-destroy.computer div.indicator div {
+  background-color: #ffaaaa;
+}
+body div#game-container div.ships-to-destroy div.indicator,
+body.dark div#game-container div.ships-to-destroy div.indicator {
+  height: 12px;
+  border: 1px solid black;
+  margin: calc((302px - (12px * 10)) / 11) auto;
+}
+body div#game-container div.ships-to-destroy div.indicator.len4,
+body.dark div#game-container div.ships-to-destroy div.indicator.len4 {
+  width: 42px;
+}
+body div#game-container div.ships-to-destroy div.indicator.len3,
+body.dark div#game-container div.ships-to-destroy div.indicator.len3 {
+  width: 32px;
+}
+body div#game-container div.ships-to-destroy div.indicator.len2,
+body.dark div#game-container div.ships-to-destroy div.indicator.len2 {
+  width: 22px;
+}
+body div#game-container div.ships-to-destroy div.indicator.len1,
+body.dark div#game-container div.ships-to-destroy div.indicator.len1 {
+  width: 12px;
+}
+body div#game-container div.ships-to-destroy div.indicator div,
+body.dark div#game-container div.ships-to-destroy div.indicator div {
+  height: 10px;
+  width: 10px;
+  border: 1px solid black;
+  float: left;
+}
+body div#game-container div.ships-to-destroy div.indicator div:last-child::after,
+body.dark div#game-container div.ships-to-destroy div.indicator div:last-child::after {
+  clear: both;
+}
+body div#game-container div.ships-to-destroy div.indicator.destroyed,
+body.dark div#game-container div.ships-to-destroy div.indicator.destroyed {
+  visibility: hidden;
+}
+
+body.light.turn.player {
+  background: linear-gradient(90deg, rgba(0, 245, 255, 0.6) 0%, rgba(255, 255, 255, 0) 20%, rgba(255, 20, 0, 0) 100%);
+}
+body.light.turn.computer {
+  background: linear-gradient(90deg, rgba(0, 245, 255, 0) 0%, rgba(255, 255, 255, 0) 80%, rgba(255, 20, 0, 0.6) 100%);
+}
+body.light #theme {
+  background-color: #101010;
+  color: whitesmoke;
+}
+body.light #battleships-play {
+  background-color: rgba(255, 255, 255, 0.5);
+}
+body.light div#game-container div.board div.field {
+  color: red;
+}
+body.light div#game-container div.board div.field.marked {
+  background-color: #ccee9f;
+}
+body.light div#game-container div.board div.field.shot {
+  color: black;
+}
+body.light div#game-container div.board div.field.shot.miss.no-need {
+  color: whitesmoke;
+  text-shadow: -1px -1px black, -1px 1px black, 1px -1px black, 1px 1px black, -1px 0 black, 1px 0 black, 0 -1px black, 0 1px black;
+}
+body.light div#game-container div.board div.field.ship.computer.visualized {
+  background-color: #ffa9a9;
+}
+body.light div#game-container div.board div.field.ship.player {
+  background-color: #1cd2ff;
+}
+body.light div#game-container div.board div.field.hovering.valid {
+  background-color: #3be63b;
+}
+body.light div#game-container div.board div.field.hovering.invalid {
+  background-color: #e93939;
+}
+body.light div#game-container div#ship-bay .ship:hover {
+  background-color: #fff59e;
+}
+body.light div#game-container div#ship-bay .ship.selected {
+  background-color: #3be63b;
+}
+
+@media (max-width: 1000px) {
+  div#game-container {
+    width: 100%;
+  }
+}
+
+/*# sourceMappingURL=battleships.css.map */

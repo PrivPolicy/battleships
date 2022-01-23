@@ -1,0 +1,391 @@
+* {
+    box-sizing: border-box;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+}
+
+html,
+body {
+    width: 100%;
+    height: 100%;
+    padding: 0;
+    margin: 0;
+}
+
+body {
+    position: relative;
+}
+
+body,
+body.dark {
+    #theme {
+        position: absolute;
+        right: 20px;
+        top: 20px;
+        width: 80px;
+        height: 30px;
+        background-color: whitesmoke;
+        border-radius: 5px;
+        cursor: pointer;
+        color: #101010;
+        text-align: center;
+        line-height: 30px;
+    }
+
+    &.turn {
+        &.player {
+            background: linear-gradient(90deg, rgba(0, 245, 255, 0.3) 0%, rgba(255, 255, 255, 0) 6%, rgba(255, 20, 0, 0) 100%);
+        }
+
+        &.computer {
+            background: linear-gradient(90deg, rgba(0, 245, 255, 0) 0%, rgba(255, 255, 255, 0) 94%, rgba(255, 20, 0, 0.3) 100%);
+        }
+    }
+
+    #battleships-play {
+        width: 100px;
+        height: 30px;
+        border: 2px solid black;
+        text-align: center;
+        line-height: 30px;
+        font-size: 16px;
+        border-radius: 6px;
+        cursor: pointer;
+        margin: 0 auto;
+        background-color: rgba(255, 255, 255, 0.5);
+    }
+
+    div#game-container {
+        width: 824px;
+        height: 402px;
+        padding-top: 100px;
+        margin: 0 auto;
+        position: relative;
+
+        &>* {
+            float: left;
+        }
+
+        div.board {
+            width: 302px;
+            height: 302px;
+            border: 1px solid black;
+            margin: 0 auto;
+            overflow: hidden;
+            background-color: rgba(255, 255, 255, 0.5);
+
+            div.field {
+                width: 30px;
+                height: 30px;
+                border: 1px solid black;
+                float: left;
+                cursor: pointer;
+                font-size: 24px;
+                line-height: 28px;
+                text-align: center;
+                color: rgb(255, 187, 0);
+                transition: color 1s linear 0.8s;
+
+                &.marked {
+                    background-color: rgb(162, 202, 108);
+                }
+
+                &.shot {
+                    color: black;
+
+                    &.ship {
+                        font-size: 24px;
+                    }
+
+                    &.miss {
+                        font-size: 56px;
+                        overflow: hidden;
+                        line-height: 24px;
+
+                        &.no-need {
+                            color: rgb(255, 255, 255);
+                            transition: none;
+                        }
+                    }
+                }
+
+                &.ship.computer.visualized {
+                    background-color: rgb(252, 140, 140);
+                }
+
+                &.ship.computer.sunken {
+                    background-color: rgb(209, 74, 74);
+                    border: none;
+
+                    $border: 2px solid rgb(0, 255, 0);
+                    $lh: 26px;
+
+                    &.border-all {
+                        border: $border;
+                        line-height: $lh;
+                    }
+
+                    &.border-vertical {
+                        border-left: $border;
+                        border-right: $border;
+                        line-height: $lh;
+                    }
+
+                    &.border-vertical-top {
+                        border-top: $border;
+                        line-height: $lh;
+                    }
+
+                    &.border-vertical-bottom {
+                        border-bottom: $border;
+                        line-height: $lh;
+                    }
+
+                    &.border-horizontal {
+                        border-top: $border;
+                        border-bottom: $border;
+                        line-height: $lh;
+                    }
+
+                    &.border-horizontal-left {
+                        border-left: $border;
+                        line-height: $lh;
+                    }
+
+                    &.border-horizontal-right {
+                        border-right: $border;
+                        line-height: $lh;
+                    }
+                }
+
+                &.ship.player {
+                    background-color: rgb(66, 195, 228);
+
+                    &.sunken {
+                        background-color: rgb(40, 104, 163);
+                        border: none;
+
+                        $border: 2px solid red;
+                        $lh: 26px;
+
+                        &.border-all {
+                            border: $border;
+                            line-height: $lh;
+                        }
+
+                        &.border-vertical {
+                            border-left: $border;
+                            border-right: $border;
+                            line-height: $lh;
+                        }
+
+                        &.border-vertical-top {
+                            border-top: $border;
+                            line-height: $lh;
+                        }
+
+                        &.border-vertical-bottom {
+                            border-bottom: $border;
+                            line-height: $lh;
+                        }
+
+                        &.border-horizontal {
+                            border-top: $border;
+                            border-bottom: $border;
+                            line-height: $lh;
+                        }
+
+                        &.border-horizontal-left {
+                            border-left: $border;
+                            line-height: $lh;
+                        }
+
+                        &.border-horizontal-right {
+                            border-right: $border;
+                            line-height: $lh;
+                        }
+                    }
+                }
+
+                &.hovering.valid {
+                    background-color: rgb(35, 201, 35);
+                }
+
+                &.hovering.invalid {
+                    background-color: rgb(207, 48, 48);
+                }
+            }
+        }
+
+        div#ship-bay {
+            position: absolute;
+            padding: 20px;
+            border: 2px solid black;
+            min-width: 1px;
+            min-height: 1px;
+            left: -180px;
+            background-color: rgba(255, 255, 255, 0.5);
+
+            .ship {
+                height: 30px;
+                border: 1px solid black;
+                margin: 5px 0;
+
+                div {
+                    width: 30px;
+                    height: 28px;
+                    border: 1px solid black;
+                    float: left;
+                    background-color: transparent;
+                }
+
+                &:hover {
+                    background-color: rgb(233, 220, 109);
+                    cursor: pointer;
+                }
+
+                &.selected {
+                    background-color: rgb(35, 201, 35);
+                }
+            }
+        }
+
+        div.ships-to-destroy {
+            height: 100%;
+            width: 50px;
+
+            &.player {
+                margin-left: 20px;
+                margin-right: 40px;
+
+                div.indicator div {
+                    background-color: rgb(170, 200, 255);
+                }
+            }
+
+            &.computer {
+                margin-left: 40px;
+                margin-right: 20px;
+
+                div.indicator div {
+                    background-color: rgb(255, 170, 170);
+                }
+            }
+
+            div.indicator {
+                height: 12px;
+                border: 1px solid black;
+                margin: calc((302px - (12px * 10)) / 11) auto;
+
+                &.len4 {
+                    width: 42px;
+                }
+
+                &.len3 {
+                    width: 32px;
+                }
+
+                &.len2 {
+                    width: 22px;
+                }
+
+                &.len1 {
+                    width: 12px;
+                }
+
+                div {
+                    height: 10px;
+                    width: 10px;
+                    border: 1px solid black;
+                    float: left;
+
+                    &:last-child::after {
+                        clear: both;
+                    }
+                }
+
+                &.destroyed {
+                    visibility: hidden;
+                }
+            }
+        }
+    }
+}
+
+
+body.light {
+    &.turn {
+        &.player {
+            background: linear-gradient(90deg, rgba(0, 245, 255, 0.6) 0%, rgba(255, 255, 255, 0) 20%, rgba(255, 20, 0, 0) 100%);
+        }
+
+        &.computer {
+            background: linear-gradient(90deg, rgba(0, 245, 255, 0) 0%, rgba(255, 255, 255, 0) 80%, rgba(255, 20, 0, 0.6) 100%);
+        }
+    }
+
+    #theme {
+        background-color: #101010;
+        color: whitesmoke;
+    }
+
+    #battleships-play {
+        background-color: rgba(255, 255, 255, 0.5);
+    }
+
+    div#game-container {
+        div.board {
+            div.field {
+                color: rgb(255, 0, 0);
+
+                &.marked {
+                    background-color: rgb(204, 238, 159);
+                }
+
+                &.shot {
+                    color: black;
+
+                    &.miss {
+                        &.no-need {
+                            color: whitesmoke;
+                            text-shadow: -1px -1px black, -1px 1px black, 1px -1px black, 1px 1px black, -1px 0 black, 1px 0 black, 0 -1px black, 0 1px black;
+                        }
+                    }
+                }
+
+                &.ship.computer.visualized {
+                    background-color: rgb(255, 169, 169);
+                }
+
+                &.ship.player {
+                    background-color: rgb(28, 210, 255);
+                }
+
+                &.hovering.valid {
+                    background-color: rgb(59, 230, 59);
+                }
+
+                &.hovering.invalid {
+                    background-color: rgb(233, 57, 57);
+                }
+            }
+        }
+
+        div#ship-bay {
+            .ship {
+                &:hover {
+                    background-color: rgb(255, 245, 158);
+                }
+
+                &.selected {
+                    background-color: rgb(59, 230, 59);
+                }
+            }
+        }
+    }
+}
+
+@media (max-width: 1000px) {
+    div#game-container {
+        width: 100%;
+    }
+}
