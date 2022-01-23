@@ -7,7 +7,6 @@ Browser version of Battleships, written in JavaScript
 - [Installation and setup](#installation-and-setup)
 - [Features](#features)
 - [Future Development](#future-development)
-- [Credits](#credits)
 
 ## Introduction
 The main goal of this project is to recreate the Wolfenstein 3D game and port it to the browsers. The project was created as a school assignment.
