@@ -6,6 +6,7 @@ Browser version of Battleships, written in JavaScript
 - [Introduction](#introduction)
 - [Installation and setup](#installation-and-setup)
 - [Features](#features)
+- [Controls](#controls)
 - [Future Development](#future-development)
 
 ## Introduction
@@ -24,6 +25,12 @@ This is a first *bigger* project of mine, written about month after starting to 
 - Advanced enemy AI, playing in the most efficient way possible
 - 2 themes to choose from (dark being the default)
 - Cheat Codes (open Developer Console to access them)
+
+## Controls
+- **Pick ship to place** - LMB
+- **Place down / pick up ship** - LMB
+- **Rotate ship** - RMB
+- **Shoot on enemy board** - LMB
 
 ## Future Development
 There are no plans for future development of this project
